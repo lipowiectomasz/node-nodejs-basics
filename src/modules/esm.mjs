@@ -1,3 +1,9 @@
+import { createRequire } from 'module';
+import {fileURLToPath} from "url";
+import {dirname} from "path";
+
+const require = createRequire(import.meta.url);
+
 const path = require('path');
 const { release, version } = require('os');
 const { createServer: createServerHttp } = require('http');
@@ -17,6 +23,9 @@ console.log(`Release ${release()}`);
 console.log(`Version ${version()}`);
 console.log(`Path segment separator is "${path.sep}"`);
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 console.log(`Path to current file is ${__filename}`);
 console.log(`Path to current directory is ${__dirname}`);
 
@@ -33,8 +42,4 @@ myServer.listen(PORT, () => {
     console.log('To terminate it, use Ctrl+C combination');
 });
 
-module.exports = {
-    unknownObject,
-    myServer,
-};
-
+export { unknownObject, myServer };
